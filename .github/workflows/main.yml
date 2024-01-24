@@ -16,6 +16,7 @@ jobs:
         with:
           application:  ${{matrix.application}}
           repository: pkp
+          branch: 'main'
           #validation: true
           test: true
           #upgrade: true
