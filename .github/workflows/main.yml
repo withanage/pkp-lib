@@ -7,7 +7,7 @@ jobs:
       fail-fast: false
       matrix:
         application: ['omp','ojs','ops']
-        database: ['pgsql']
+        database: ['pgsql','mysql']
         php-version: [ '8.1']
 
     name: pkp-lib
@@ -17,6 +17,6 @@ jobs:
           application:  ${{matrix.application}}
           repository: pkp
           branch: 'main'
-          #validation: true
+          validation: true
           test: true
-          #upgrade: true
+          upgrade: true
