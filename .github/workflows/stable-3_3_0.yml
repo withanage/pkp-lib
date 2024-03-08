@@ -16,6 +16,8 @@ jobs:
         with:
           application:  ${{matrix.application}}
           repository: pkp
-          branch: stable-3_3_0
+          branch: CURRENT_BRANCH
           node_version: 12
           upgrade_test: 'stable-3_2_0,stable-3_2_1,stable-3_3_0,stable-3_4_0'
+  
+  php8.2-bcmath php8.2-bz2 php8.2-curl php8.2-gd php8.2-intl php8.2-mbstring php8.2-mysql php8.2-mysqlnd php8.2-mysqli php8.2-opcache php8.2-pdo_mysql php8.2-pgsql php8.2-json php8.2-soap php8.2-xml php8.2-zip
