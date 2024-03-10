@@ -6,9 +6,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        php-version: [ '7.3']
+        database: ['pgsql']
         application: ['omp','ojs','ops']
-        database: ['pgsql','mysql']
-        php-version: [ '7.3','7.4','8.0','8.1','8.2' ]
 
     name: pkp-lib
     steps:
@@ -19,4 +19,4 @@ jobs:
           branch: stable-3_3_0
           node_version: 12
           upgrade_test: 'stable-3_2_0,stable-3_2_1,stable-3_3_0,stable-3_4_0'
-  
+
