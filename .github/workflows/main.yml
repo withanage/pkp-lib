@@ -1,0 +1,44 @@
+on: [push, pull_request]
+name: pkp-lib
+jobs:
+  pkp-lib:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - application: ojs
+            php-version: 8.2
+            database: mariadb
+            test: 'test'
+          - application: omp
+            php-version: 8.2
+            database: mysql
+            test: 'test'
+          - application: ops
+            php-version: 8.2
+            database: pgsql
+            test: 'test'
+          - application: ojs
+            php-version: 8.1
+            database: mysql
+            test: 'test'
+          - application: omp
+            php-version: 8.1
+            database: pgsql
+            test: 'test'
+          - application: ops
+            php-version: 8.1
+            database: mariadb
+            test: 'test'
+
+
+    name: pkp-lib
+    steps:
+      - uses: xmlFlow/pkp-github-actions@v1
+        with:
+          repository: pkp
+          branch: main
+          node_version: 20
+          DEBUG_IN_TMATE: true
+
