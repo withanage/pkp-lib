@@ -1,13 +1,14 @@
-# Jordi LC <jordi.lacruz@uab.cat>, 2021, 2023.
+# Jordi LC <jordi.lacruz@uab.cat>, 2021, 2023, 2024.
 # Diego Abadan <diego@lepidus.com.br>, 2022.
 # Marc Bria <marc.bria@gmail.com>, 2023.
+# Jonas Raoni Soares da Silva <weblate@raoni.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-27T09:47:22-07:00\n"
-"PO-Revision-Date: 2023-04-28 14:09+0000\n"
-"Last-Translator: Jordi LC <jordi.lacruz@uab.cat>\n"
+"PO-Revision-Date: 2024-03-11 19:05+0000\n"
+"Last-Translator: Jonas Raoni Soares da Silva <weblate@raoni.org>\n"
 "Language-Team: Spanish <http://translate.pkp.sfu.ca/projects/pkp-lib/common/"
 "es/>\n"
 "Language: es\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13.1\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgid "common.publicKnowledgeProject"
 msgstr "Public Knowledge Project"
@@ -776,7 +777,9 @@ msgid "common.replaceFile"
 msgstr "Reemplazar archivo"
 
 msgid "common.requiredField"
-msgstr "* Campo obligatorio"
+msgstr ""
+"Los campos obligatorios están marcados con un asterisco: <abbr class="
+"\"required\" title=\"required\">*</abbr>"
 
 msgid "common.required"
 msgstr "Obligatorio"
@@ -1745,7 +1748,7 @@ msgid "search.SearchFor"
 msgstr "Buscar"
 
 msgid "search.searchResults"
-msgstr "Buscar resultados"
+msgstr "Resultados de la búsqueda"
 
 msgid "search.searchResults.foundSingle"
 msgstr "Un elemento encontrado."
@@ -2314,3 +2317,18 @@ msgstr "Autor/a editado."
 
 #~ msgid "common.listSeparator"
 #~ msgstr ","
+
+msgid "showAll"
+msgstr "Mostrar todo"
+
+msgid "showLess"
+msgstr "Mostrar menos"
+
+msgid "common.highlight"
+msgstr "Destacar"
+
+msgid "common.highlights"
+msgstr "Destacados"
+
+msgid "common.sandbox"
+msgstr "Aplicación ejecutándose en modo sandbox."

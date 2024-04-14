@@ -44,8 +44,9 @@
 				canClose;
 
 		// Merge user and default options.
-		this.options = /** @type {{ canClose: boolean, title: string,
-				titleIcon: string, closeCleanVueInstances: Array }} */
+		this.options = /** @type {{ canClose: boolean, textTitle: string,
+				title: string, titleIcon: string,
+				closeCleanVueInstances: Array }} */
 				(this.mergeOptions(internalOptions));
 
 		// Attach content to the modal
@@ -162,10 +163,13 @@
 	$.pkp.controllers.modal.ModalHandler.prototype.modalBuild =
 			function() {
 
-		var $modal = $('<div class="pkp_modal_panel"></div>');
+		var $titleDiv, $modal = $('<div class="pkp_modal_panel"></div>');
 
 		// Title bar
-		if (typeof(this.options.title) !== 'undefined') {
+		if (typeof(this.options.textTitle) !== 'undefined') {
+			$titleDiv = $('<div class="header"/>').text(this.options.textTitle);
+			$modal.append($titleDiv);
+		} else if (typeof(this.options.title) !== 'undefined') {
 			$modal.append('<div class="header">' + this.options.title + '</div>');
 		} else {
 			$modal.append('<div class="header">' + '</div>');

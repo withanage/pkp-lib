@@ -155,13 +155,13 @@ class AddParticipantForm extends PKPStageParticipantNotifyForm
             'recommendOnlyUserGroupIds' => Repo::userGroup()->getCollector()
                 ->filterByContextIds([$request->getContext()->getId()])
                 ->filterByIsRecommendOnly()
-                ->getMany()
+                ->getIds()
                 ->toArray(),
             'notPossibleEditSubmissionMetadataPermissionChange' => $this->_managerGroupIds,
             'permitMetadataEditUserGroupIds' => Repo::userGroup()->getCollector()
                 ->filterByContextIds([$request->getContext()->getId()])
                 ->filterByPermitMetadataEdit(true)
-                ->getMany()
+                ->getIds()
                 ->toArray(),
             'submissionId' => $this->getSubmission()->getId(),
             'userGroupId' => '',
@@ -243,7 +243,7 @@ class AddParticipantForm extends PKPStageParticipantNotifyForm
         $userGroupId = (int) $this->getData('userGroupId');
         $userId = (int) $this->getData('userId');
 
-        return Repo::userGroup()->userInGroup($userId, $userGroupId) && Repo::userGroup()->get($userGroupId);
+        return Repo::userGroup()->userInGroup($userId, $userGroupId) && Repo::userGroup()->get($userGroupId) && parent::validate($callHooks);
     }
 
     /**

@@ -187,8 +187,8 @@ class LocaleMetadata
      */
     public function getScript(?string $locale = null): ?string
     {
-        $script = ucfirst($this->_parse()->script);
-        return $this->_parse()->script ? Locale::getScripts($locale)->getByAlpha4($script)->getLocalName() : null;
+        $script = ucfirst($this->_parse()->script ?? '');
+        return $script ? Locale::getScripts($locale)->getByAlpha4($script)->getLocalName() : null;
     }
 
     /**
@@ -229,7 +229,7 @@ class LocaleMetadata
     }
 
     /**
-     * Retrieves the ISO639-2b representation
+     * Retrieves the ISO639-1 representation
      */
     public function getIsoAlpha2(): string
     {

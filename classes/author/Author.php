@@ -27,7 +27,7 @@ class Author extends Identity
     /**
      * Get the default/fall back locale the values should exist for
      */
-    public function getDefaultLocale(): string
+    public function getDefaultLocale(): ?string
     {
         return $this->getSubmissionLocale();
     }
@@ -227,5 +227,31 @@ class Author extends Identity
     {
         $userGroup = $this->getUserGroup();
         return $userGroup->getLocalizedName();
+    }
+
+    /**
+     * Get competing interests.
+     * @return string|array|null
+     */
+    function getCompetingInterests(?string $locale)
+    {
+        return $this->getData('competingInterests', $locale);
+    }
+
+    /**
+     * Set competing interests.
+     * @param $competingInterests string|array|null
+     */
+    function setCompetingInterests($competingInterests, ?string $locale)
+    {
+        $this->setData('competingInterests', $competingInterests, $locale);
+    }
+
+    /**
+     * Get a localized version competing interest statement
+     */
+    function getLocalizedCompetingInterests(): ?string
+    {
+        return $this->getLocalizedData('competingInterests');
     }
 }
