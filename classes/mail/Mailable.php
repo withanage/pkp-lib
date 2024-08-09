@@ -28,7 +28,6 @@
 
 namespace PKP\mail;
 
-use APP\core\Services;
 use APP\decision\Decision;
 use APP\facades\Repo;
 use APP\mail\variables\ContextEmailVariable;
@@ -68,6 +67,8 @@ use ReflectionUnionType;
 
 class Mailable extends IlluminateMailable
 {
+    public const EMAIL_TEMPLATE_STYLE_PROPERTY = 'emailTemplateStyle';
+
     /** Used internally by Illuminate Mailer. Do not touch. */
     public const DATA_KEY_MESSAGE = 'message';
 
@@ -90,6 +91,8 @@ class Mailable extends IlluminateMailable
     public const ATTACHMENT_TEMPORARY_FILE = 'temporaryFileId';
     public const ATTACHMENT_SUBMISSION_FILE = 'submissionFileId';
     public const ATTACHMENT_LIBRARY_FILE = 'libraryFileId';
+
+    
 
     /** @var string|null Locale key for the name of this Mailable */
     protected static ?string $name = null;
@@ -596,7 +599,7 @@ class Mailable extends IlluminateMailable
         if (!$submissionFile) {
             throw new Exception('Tried to attach submission file ' . $id . ' that does not exist.');
         }
-        $file = Services::get('file')->get($submissionFile->getData('fileId'));
+        $file = app()->get('file')->get($submissionFile->getData('fileId'));
         $this->attach(
             Config::getVar('files', 'files_dir') . '/' . $file->path,
             [
