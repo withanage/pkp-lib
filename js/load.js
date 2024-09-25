@@ -106,6 +106,9 @@ import FieldSlider from '@/components/Form/fields/FieldSlider.vue';
 // Panel components from UI Library
 import ListPanel from '@/components/ListPanel/ListPanel.vue';
 
+// Manager components
+import InvitationManager from '@/managers/InvitationManager/InvitationManager.vue';
+
 // Helper for initializing and tracking Vue controllers
 import VueRegistry from './classes/VueRegistry.js';
 
@@ -215,6 +218,9 @@ VueRegistry.registerComponent('field-pub-id', FieldPubId);
 
 // Register ListPanel
 VueRegistry.registerComponent('PkpListPanel', ListPanel);
+
+// Register Invitation Manager
+VueRegistry.registerComponent('InvitationManager', InvitationManager);
 
 const pinia = createPinia();
 

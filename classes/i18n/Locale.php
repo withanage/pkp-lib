@@ -153,7 +153,7 @@ class Locale implements LocaleInterface
 
         $this->locale = $locale;
         setlocale(LC_ALL, 'C.utf8', 'C');
-        \Locale::setDefault(\Locale::lookup(ResourceBundle::getLocales(''), $locale, true));
+//        \Locale::setDefault(\Locale::lookup(ResourceBundle::getLocales(''), $locale, true));
     }
 
     /**
