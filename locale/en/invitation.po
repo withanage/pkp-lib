@@ -277,10 +277,10 @@ msgstr "A surname, family name, or last name is the mostly  hereditary portion o
 msgid "acceptInvitation.userDetailsForm.affiliation.description"
 msgstr "This is the institute you are affiliated with"
 
-msgid "acceptInvitation.userDetailsForm.countyOfAffiliation.description"
+msgid "acceptInvitation.userDetailsForm.countryOfAffiliation.description"
 msgstr "This is a country in which the institute you are affiliated with is situated"
 
-msgid "acceptInvitation.userDetailsForm.countyOfAffiliation.label"
+msgid "acceptInvitation.userDetailsForm.countryOfAffiliation.label"
 msgstr "County of affiliation"
 
 msgid "acceptInvitation.review.accountDetails"

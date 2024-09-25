@@ -33,7 +33,7 @@ class Step
      * @param string $stepLabel A step label with step number of this step. Shown to the user.
      * @param string $nextButtonLabel A step button label of this step. Shown to the user.
      * @param string $type A type of this step.
-     * @param bool $skipInvitationUpdate A type of this step.
+     * @param bool $skipInvitationUpdate  Skip invitation update,
      */
     public function __construct(string $id, string $name, string $description = '', string $stepLabel, string $nextButtonLabel, string $type, bool $skipInvitationUpdate = false)
     {

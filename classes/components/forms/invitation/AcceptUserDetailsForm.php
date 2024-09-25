@@ -76,8 +76,8 @@ class AcceptUserDetailsForm extends FormComponent
 
             ]))
             ->addField(new FieldSelect('userCountry', [
-                'label' => __('acceptInvitation.userDetailsForm.countyOfAffiliation.label'),
-                'description' => __('acceptInvitation.userDetailsForm.countyOfAffiliation.description'),
+                'label' => __('acceptInvitation.userDetailsForm.countryOfAffiliation.label'),
+                'description' => __('acceptInvitation.userDetailsForm.countryOfAffiliation.description'),
                 'options' => $countries,
                 'isRequired' => true,
                 'size' => 'large',

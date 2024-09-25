@@ -25,8 +25,8 @@ abstract class Step
 
     /**
      * @param string $id A unique id for this step
-     * @param string $name The name of this step. Shown to the user.
-     * @param string $description A description of this step. Shown to the user.
+     * @param string $name The name of this step
+     * @param string $description A description of this step
      */
     public function __construct(string $id, string $name, string $description = '')
     {
