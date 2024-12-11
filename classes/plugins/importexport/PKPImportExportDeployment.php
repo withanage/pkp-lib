@@ -23,6 +23,8 @@ namespace PKP\plugins\importexport;
 use APP\facades\Repo;
 use APP\publication\Publication;
 use APP\submission\Submission;
+use DOMDocument;
+use DOMXPath;
 use Error;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +84,9 @@ class PKPImportExportDeployment
     /** @var array A list of exported root elements to display to the user after the export is complete */
     private $_exportRootEntities;
 
+    /** @var  array list of custom errors */
+    private $customErrors = [];
+
     /**
      * Constructor
      *
@@ -103,6 +108,16 @@ class PKPImportExportDeployment
     //
     // Deployment items for subclasses to override
     //
+
+    /**
+     * Get Custom errors
+     * @return array
+     */
+    public function getCustomErrors(): array
+    {
+        return $this->customErrors;
+    }
+
     /**
      * Get the submission node name
      *
@@ -286,6 +301,7 @@ class PKPImportExportDeployment
         }
         return null;
     }
+
     /**
      * Get the processed objects errors.
      *
@@ -565,14 +581,15 @@ class PKPImportExportDeployment
             $dbConnection->commit();
 
             $this->processResult = $result;
-        } catch (Error | Exception $e) {
+        } catch (Error|Exception $e) {
             $this->addError(PKPApplication::ASSOC_TYPE_NONE, 0, $e->getMessage());
             $dbConnection->rollBack();
 
             $this->processFailed = true;
         } finally {
-            $this->xmlValidationErrors = array_filter(libxml_get_errors(), fn (LibXMLError $error) => in_array($error->level, [LIBXML_ERR_ERROR, LIBXML_ERR_FATAL]));
+            $this->xmlValidationErrors = array_filter(libxml_get_errors(), fn(LibXMLError $error) => in_array($error->level, [LIBXML_ERR_ERROR, LIBXML_ERR_FATAL]));
             libxml_clear_errors();
+            $this->getStageCompatibilty($importXml);
         }
     }
 
@@ -609,7 +626,7 @@ class PKPImportExportDeployment
             }
 
             $this->processResult = $result;
-        } catch (Error | Exception $e) {
+        } catch (Error|Exception $e) {
             $this->addError(PKPApplication::ASSOC_TYPE_NONE, 0, $e->getMessage());
 
             $this->processFailed = true;
@@ -647,12 +664,12 @@ class PKPImportExportDeployment
     }
 
     /**
-    * Get object type string.
-    *
-    * @param mixed $assocType int or null (optional)
-    *
-    * @return mixed string or array
-    */
+     * Get object type string.
+     *
+     * @param mixed $assocType int or null (optional)
+     *
+     * @return mixed string or array
+     */
     public function getObjectTypeString($assocType = null)
     {
         $objectTypes = $this->getObjectTypes();
@@ -677,6 +694,7 @@ class PKPImportExportDeployment
     {
         $problems = [];
         $objectTypes = $this->getObjectTypes();
+        $genericError = $objectTypes[PKPApplication::ASSOC_TYPE_NONE];
         foreach ($objectTypes as $assocType => $name) {
             $foundWarnings = $this->getProcessedObjectsWarnings($assocType);
             if (!empty($foundWarnings)) {
@@ -689,9 +707,11 @@ class PKPImportExportDeployment
             }
         }
         if (count($validationErrors = $this->getXMLValidationErrors())) {
-            $validationErrors = array_map(fn (LibXMLError $e) => "Line {$e->line} Column {$e->column}: {$e->message}", $validationErrors);
-            $genericError = $objectTypes[PKPApplication::ASSOC_TYPE_NONE];
+            $validationErrors = array_map(fn(LibXMLError $e) => "Line {$e->line} Column {$e->column}: {$e->message}", $validationErrors);
             $problems['errors'][$genericError][] = [$validationErrors];
+        }
+        if (count($customErrors = $this->getCustomErrors())) {
+            $problems['errors'][$genericError][] = [$customErrors];
         }
 
         return $problems;
@@ -728,6 +748,25 @@ class PKPImportExportDeployment
         }
 
         return false;
+    }
+
+    /**
+     * @param DOMDocument $DOMDocument
+     * @return void get  stage Compatibility
+     */
+    private function getStageCompatibilty(DOMDocument $DOMDocument): void
+    {
+        $xpath = new DOMXPath($DOMDocument);
+        $xpath->registerNamespace('ns', 'http://pkp.sfu.ca');
+
+        $reviewStateQuery = '//ns:article[@stage="externalReview" or @stage="internalReview"]';
+        $reviewStages = $xpath->query($reviewStateQuery);
+        if ($reviewStages->length > 0) {
+            foreach ($reviewStages as $reviewStage) {
+                $this->customErrors [] = __("plugins.importexport.common.error.unsupportedStage");
+                $this->processFailed = true;
+            }
+        }
     }
 }
 
