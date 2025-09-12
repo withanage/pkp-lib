@@ -748,6 +748,12 @@ abstract class PKPApplication implements iPKPApplicationInfoProvider {
 	 * @return string HTML code for CC license
 	 */
 	public function getCCLicenseBadge($ccLicenseURL, $locale = null) {
+
+		// Check for CC license deed URL pattern: /[country-code]/deed.[language-code]
+		if (preg_match('|/[a-z]{2}/deed\.[a-z]+$|', $ccLicenseURL ?? '')) {
+			return "<a href=\"$ccLicenseURL\" target=\"_blank\">$ccLicenseURL</a>";
+		}
+
 		$licenseKeyMap = array(
 			'|http[s]?://(www\.)?creativecommons.org/licenses/by-nc-nd/4.0[/]?|' => 'submission.license.cc.by-nc-nd4.footer',
 			'|http[s]?://(www\.)?creativecommons.org/licenses/by-nc/4.0[/]?|' => 'submission.license.cc.by-nc4.footer',
